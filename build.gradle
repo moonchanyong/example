@@ -1,0 +1,50 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+group = "io.swagger"
+version = "1.0.0"
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+ext {
+    armeria_version = "0.97.0"
+    developer = {
+        name = "Swagger"
+        email = "apiteam@swagger.io"
+        organization = "Swagger"
+        organizationUrl = "http://swagger.io"
+    }
+
+    license = {
+        name = "Unlicense"
+        url = "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+    scm = {
+        connection = "scm:git:git@github.com:swagger-api/swagger-codegen.git"
+        developerConnection = "scm:git:git@github.com:swagger-api/swagger-codegen.git"
+        url = "https://github.com/swagger-api/swagger-codegen"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += '-parameters'
+}
+
+dependencies {
+    // armeria
+    compile "com.linecorp.armeria:armeria:${armeria_version}"
+    compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+
+    // Logging
+    runtime 'ch.qos.logback:logback-classic:1.2.3'
+    runtime 'org.slf4j:log4j-over-slf4j:1.7.29'
+
+    testCompile 'junit:junit'
+}
+
