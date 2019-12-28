@@ -1,44 +1,21 @@
 package example.armeria.server.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 import com.linecorp.armeria.server.annotation.Description;
 
 
 @Description("A tag for a pet")
-public class Tag   {
-  
-  @JsonProperty("id")
-  private Long id = null;
-
-  @JsonProperty("name")
-  private String name = null;
-
-  public Tag id(Long id) {
-    this.id = id;
-    return this;
-  }
-
+public class Tag {
+    private Long id = null;
+    private String name = null;
   @Description("")
   public Long getId() {
     return id;
-  }
-  public void setId(Long id) {
-    this.id = id;
-  }
-  public Tag name(String name) {
-    this.name = name;
-    return this;
   }
 
   @Description("")
   public String getName() {
     return name;
-  }
-  public void setName(String name) {
-    this.name = name;
   }
 
   @Override

@@ -1,59 +1,27 @@
 package example.armeria.server.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 import com.linecorp.armeria.server.annotation.Description;
 
 
 @Description("Describes the result of uploading an image resource")
-public class ModelApiResponse   {
-  
-  @JsonProperty("code")
-  private Integer code = null;
-
-  @JsonProperty("type")
-  private String type = null;
-
-  @JsonProperty("message")
-  private String message = null;
-
-  public ModelApiResponse code(Integer code) {
-    this.code = code;
-    return this;
-  }
-
+public class ModelApiResponse {
+    private Integer code = null;
+    private String type = null;
+    private String message = null;
   @Description("")
   public Integer getCode() {
     return code;
-  }
-  public void setCode(Integer code) {
-    this.code = code;
-  }
-  public ModelApiResponse type(String type) {
-    this.type = type;
-    return this;
   }
 
   @Description("")
   public String getType() {
     return type;
   }
-  public void setType(String type) {
-    this.type = type;
-  }
-  public ModelApiResponse message(String message) {
-    this.message = message;
-    return this;
-  }
 
   @Description("")
   public String getMessage() {
     return message;
-  }
-  public void setMessage(String message) {
-    this.message = message;
   }
 
   @Override

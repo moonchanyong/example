@@ -3,24 +3,27 @@ package example.armeria.server.annotated;
 import example.armeria.server.model.ModelApiResponse;
 import example.armeria.server.model.Pet;
 import com.linecorp.armeria.server.annotation.Delete;
-import com.linecorp.armeria.common.HttpStatus;
-import com.linecorp.armeria.server.annotation.Description;
 import javax.validation.constraints.NotNull;
-import com.linecorp.armeria.server.annotation.Post;
-import com.linecorp.armeria.server.annotation.Get;
-import com.linecorp.armeria.server.annotation.Param;
+import com.linecorp.armeria.server.annotation.Description;
+import com.linecorp.armeria.server.annotation.ConsumesJson;
 import java.util.List;
-import com.linecorp.armeria.server.annotation.Put;
+import com.linecorp.armeria.server.annotation.Param;
 import com.linecorp.armeria.common.HttpResponse;
 import com.linecorp.armeria.server.annotation.Consumes;
-import com.linecorp.armeria.server.annotation.Header;
 import com.linecorp.armeria.server.annotation.Produces;
+import com.linecorp.armeria.common.HttpStatus;
+import com.linecorp.armeria.server.annotation.ProducesJson;
+import com.linecorp.armeria.server.annotation.Post;
+import com.linecorp.armeria.server.annotation.Get;
+import com.linecorp.armeria.server.annotation.Put;
+import com.linecorp.armeria.common.HttpRequest;
+import com.linecorp.armeria.server.annotation.Header;
 
 public class PetApi {
     @Post("/pet")
     @Produces("application/xml")
-    @Produces("application/json")
-    @Consumes("application/json")
+    @ProducesJson
+    @ConsumesJson
     @Consumes("application/xml")
     @Description("Add a new pet to the store")
     public HttpResponse addPet(
@@ -34,7 +37,7 @@ public class PetApi {
 
     @Delete("/pet/{petId}")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Description("Deletes a pet")
     public HttpResponse deletePet(
         @Param("petId") @NotNull @Description("Pet id to delete") Long petId,
@@ -48,7 +51,7 @@ public class PetApi {
 
     @Get("/pet/findByStatus")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Description("Finds Pets by status")
     public HttpResponse findPetsByStatus(
         @Param("status") @NotNull @Description("Status values that need to be considered for filter") List<String> status
@@ -62,7 +65,7 @@ public class PetApi {
 
     @Get("/pet/findByTags")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Description("Finds Pets by tags")
     public HttpResponse findPetsByTags(
         @Param("tags") @NotNull @Description("Tags to filter by") List<String> tags
@@ -76,7 +79,7 @@ public class PetApi {
 
     @Get("/pet/{petId}")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Description("Find pet by ID")
     public HttpResponse getPetById(
         @Param("petId") @NotNull @Description("ID of pet to return") Long petId
@@ -90,8 +93,8 @@ public class PetApi {
 
     @Put("/pet")
     @Produces("application/xml")
-    @Produces("application/json")
-    @Consumes("application/json")
+    @ProducesJson
+    @ConsumesJson
     @Consumes("application/xml")
     @Description("Update an existing pet")
     public HttpResponse updatePet(
@@ -105,7 +108,7 @@ public class PetApi {
 
     @Post("/pet/{petId}")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Consumes("application/x-www-form-urlencoded")
     @Description("Updates a pet in the store with form data")
     public HttpResponse updatePetWithForm(
@@ -120,12 +123,12 @@ public class PetApi {
     }
 
     @Post("/pet/{petId}/uploadImage")
-    @Produces("application/json")
+    @ProducesJson
     @Consumes("multipart/form-data")
     @Description("uploads an image")
     public HttpResponse uploadFile(
         @Param("petId") @NotNull @Description("ID of pet to update") Long petId,
-        @Description("multipart data") byte[] multipartForm
+        @Description("multipart data") HttpRequest req
     ) {
         /*
          *  TODO: Implement `uploadFile` method

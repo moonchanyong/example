@@ -2,23 +2,25 @@ package example.armeria.server.annotated;
 
 import example.armeria.server.model.User;
 import com.linecorp.armeria.server.annotation.Delete;
-import com.linecorp.armeria.common.HttpStatus;
-import com.linecorp.armeria.server.annotation.Description;
 import javax.validation.constraints.NotNull;
-import com.linecorp.armeria.server.annotation.Post;
-import com.linecorp.armeria.server.annotation.Get;
-import com.linecorp.armeria.server.annotation.Param;
+import com.linecorp.armeria.server.annotation.Description;
 import java.util.List;
-import com.linecorp.armeria.server.annotation.Put;
+import com.linecorp.armeria.server.annotation.Param;
 import com.linecorp.armeria.common.HttpResponse;
 import com.linecorp.armeria.server.annotation.Consumes;
-import com.linecorp.armeria.server.annotation.Header;
 import com.linecorp.armeria.server.annotation.Produces;
+import com.linecorp.armeria.common.HttpStatus;
+import com.linecorp.armeria.server.annotation.ProducesJson;
+import com.linecorp.armeria.server.annotation.Post;
+import com.linecorp.armeria.server.annotation.Get;
+import com.linecorp.armeria.server.annotation.Put;
+import com.linecorp.armeria.common.HttpRequest;
+import com.linecorp.armeria.server.annotation.Header;
 
 public class UserApi {
     @Post("/user")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Description("Create user")
     public HttpResponse createUser(
         @NotNull @Description("Created user object") User body
@@ -31,7 +33,7 @@ public class UserApi {
 
     @Post("/user/createWithArray")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Description("Creates list of users with given input array")
     public HttpResponse createUsersWithArrayInput(
         @NotNull @Description("List of user object") List<User> body
@@ -44,7 +46,7 @@ public class UserApi {
 
     @Post("/user/createWithList")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Description("Creates list of users with given input array")
     public HttpResponse createUsersWithListInput(
         @NotNull @Description("List of user object") List<User> body
@@ -57,7 +59,7 @@ public class UserApi {
 
     @Delete("/user/{username}")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Description("Delete user")
     public HttpResponse deleteUser(
         @Param("username") @NotNull @Description("The name that needs to be deleted") String username
@@ -70,7 +72,7 @@ public class UserApi {
 
     @Get("/user/{username}")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Description("Get user by user name")
     public HttpResponse getUserByName(
         @Param("username") @NotNull @Description("The name that needs to be fetched. Use user1 for testing.") String username
@@ -84,7 +86,7 @@ public class UserApi {
 
     @Get("/user/login")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Description("Logs user into the system")
     public HttpResponse loginUser(
         @Param("username") @NotNull @Description("The user name for login") String username,
@@ -99,7 +101,7 @@ public class UserApi {
 
     @Get("/user/logout")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Description("Logs out current logged in user session")
     public HttpResponse logoutUser() {
         /*
@@ -110,7 +112,7 @@ public class UserApi {
 
     @Put("/user/{username}")
     @Produces("application/xml")
-    @Produces("application/json")
+    @ProducesJson
     @Description("Updated user")
     public HttpResponse updateUser(
         @Param("username") @NotNull @Description("name that need to be deleted") String username,

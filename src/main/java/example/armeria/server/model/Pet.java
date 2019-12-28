@@ -1,8 +1,5 @@
 package example.armeria.server.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import example.armeria.server.model.Category;
 import example.armeria.server.model.Tag;
 import java.util.ArrayList;
@@ -12,21 +9,17 @@ import com.linecorp.armeria.server.annotation.Description;
 
 
 @Description("A pet for sale in the pet store")
-public class Pet   {
+public class Pet {
+    private Long id = null;
+    private Category category = null;
+    private String name = null;
   
-  @JsonProperty("id")
-  private Long id = null;
+  private List<String> photoUrls = new ArrayList<>();
 
-  @JsonProperty("category")
-  private Category category = null;
+  
+  private List<Tag> tags = null;
 
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("photoUrls")  private List<String> photoUrls = new ArrayList<>();
-
-  @JsonProperty("tags")  private List<Tag> tags = null;
-
+  
   /**
    * pet status in the store
    */
@@ -44,11 +37,10 @@ public class Pet   {
     }
 
     @Override
-    @JsonValue
     public String toString() {
       return String.valueOf(value);
     }
-    @JsonCreator
+    
     public static StatusEnum fromValue(String text) {
       for (StatusEnum b : StatusEnum.values()) {
         if (String.valueOf(b.value).equals(text)) {
@@ -59,94 +51,35 @@ public class Pet   {
     }
   }
 
-    
-  @JsonProperty("status")
-  private StatusEnum status = null;
-
-  public Pet id(Long id) {
-    this.id = id;
-    return this;
-  }
-
+      private StatusEnum status = null;
   @Description("")
   public Long getId() {
     return id;
-  }
-  public void setId(Long id) {
-    this.id = id;
-  }
-  public Pet category(Category category) {
-    this.category = category;
-    return this;
   }
 
   @Description("")
   public Category getCategory() {
     return category;
   }
-  public void setCategory(Category category) {
-    this.category = category;
-  }
-  public Pet name(String name) {
-    this.name = name;
-    return this;
-  }
 
   @Description("")
   public String getName() {
     return name;
-  }
-  public void setName(String name) {
-    this.name = name;
-  }
-  public Pet photoUrls(List<String> photoUrls) {
-    this.photoUrls = photoUrls;
-    return this;
-  }
-
-  public Pet addPhotoUrlsItem(String photoUrlsItem) {
-    this.photoUrls.add(photoUrlsItem);
-    return this;
   }
 
   @Description("")
   public List<String> getPhotoUrls() {
     return photoUrls;
   }
-  public void setPhotoUrls(List<String> photoUrls) {
-    this.photoUrls = photoUrls;
-  }
-  public Pet tags(List<Tag> tags) {
-    this.tags = tags;
-    return this;
-  }
-
-  public Pet addTagsItem(Tag tagsItem) {
-    if (this.tags == null) {
-      this.tags = new ArrayList<>();
-    }
-    this.tags.add(tagsItem);
-    return this;
-  }
 
   @Description("")
   public List<Tag> getTags() {
     return tags;
   }
-  public void setTags(List<Tag> tags) {
-    this.tags = tags;
-  }
-  public Pet status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
 
   @Description("pet status in the store")
   public StatusEnum getStatus() {
     return status;
-  }
-  public void setStatus(StatusEnum status) {
-    this.status = status;
   }
 
   @Override
